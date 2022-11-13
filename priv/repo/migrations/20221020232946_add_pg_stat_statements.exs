@@ -1,4 +1,4 @@
-defmodule Pento.Repo.Migrations.AddPgStatStatements do
+defmodule Prices.Repo.Migrations.AddPgStatStatements do
   @moduledoc """
   Used by LiveDashboard for detailed Postgres outlier metrics.
   """

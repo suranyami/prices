@@ -1,4 +1,4 @@
-# Pento
+# Prices
 
 To start your Phoenix server:
 

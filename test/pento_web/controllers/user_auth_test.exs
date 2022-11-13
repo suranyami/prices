@@ -1,16 +1,16 @@
-defmodule PentoWeb.UserAuthTest do
-  use PentoWeb.ConnCase, async: true
+defmodule PricesWeb.UserAuthTest do
+  use PricesWeb.ConnCase, async: true
 
-  alias Pento.Accounts
-  alias PentoWeb.UserAuth
-  import Pento.AccountsFixtures
+  alias Prices.Accounts
+  alias PricesWeb.UserAuth
+  import Prices.AccountsFixtures
 
-  @remember_me_cookie "_pento_web_user_remember_me"
+  @remember_me_cookie "_prices_web_user_remember_me"
 
   setup %{conn: conn} do
     conn =
       conn
-      |> Map.replace!(:secret_key_base, PentoWeb.Endpoint.config(:secret_key_base))
+      |> Map.replace!(:secret_key_base, PricesWeb.Endpoint.config(:secret_key_base))
       |> init_test_session(%{})
 
     %{user: user_fixture(), conn: conn}
@@ -65,7 +65,7 @@ defmodule PentoWeb.UserAuthTest do
 
     test "broadcasts to the given live_socket_id", %{conn: conn} do
       live_socket_id = "users_sessions:abcdef-token"
-      PentoWeb.Endpoint.subscribe(live_socket_id)
+      PricesWeb.Endpoint.subscribe(live_socket_id)
 
       conn
       |> put_session(:live_socket_id, live_socket_id)

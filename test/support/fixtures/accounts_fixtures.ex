@@ -1,7 +1,7 @@
-defmodule Pento.AccountsFixtures do
+defmodule Prices.AccountsFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `Pento.Accounts` context.
+  entities via the `Prices.Accounts` context.
   """
 
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
@@ -18,7 +18,7 @@ defmodule Pento.AccountsFixtures do
     {:ok, user} =
       attrs
       |> valid_user_attributes()
-      |> Pento.Accounts.register_user()
+      |> Prices.Accounts.register_user()
 
     user
   end

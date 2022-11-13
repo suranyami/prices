@@ -1,12 +1,12 @@
-defmodule Pento.CatalogTest do
-  use Pento.DataCase
+defmodule Prices.CatalogTest do
+  use Prices.DataCase
 
-  alias Pento.Catalog
+  alias Prices.Catalog
 
   describe "products" do
-    alias Pento.Catalog.Product
+    alias Prices.Catalog.Product
 
-    import Pento.CatalogFixtures
+    import Prices.CatalogFixtures
 
     @invalid_attrs %{description: nil, name: nil, sku: nil, unit_price: nil}
 

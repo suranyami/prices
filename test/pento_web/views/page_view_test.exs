@@ -1,3 +1,3 @@
-defmodule PentoWeb.PageViewTest do
-  use PentoWeb.ConnCase, async: true
+defmodule PricesWeb.PageViewTest do
+  use PricesWeb.ConnCase, async: true
 end

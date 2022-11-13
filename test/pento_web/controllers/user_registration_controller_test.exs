@@ -1,7 +1,7 @@
-defmodule PentoWeb.UserRegistrationControllerTest do
-  use PentoWeb.ConnCase, async: true
+defmodule PricesWeb.UserRegistrationControllerTest do
+  use PricesWeb.ConnCase, async: true
 
-  import Pento.AccountsFixtures
+  import Prices.AccountsFixtures
 
   describe "GET /users/register" do
     test "renders registration page", %{conn: conn} do

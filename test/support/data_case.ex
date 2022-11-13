@@ -1,4 +1,4 @@
-defmodule Pento.DataCase do
+defmodule Prices.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -10,7 +10,7 @@ defmodule Pento.DataCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use Pento.DataCase, async: true`, although
+  by setting `use Prices.DataCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -18,17 +18,17 @@ defmodule Pento.DataCase do
 
   using do
     quote do
-      alias Pento.Repo
+      alias Prices.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Pento.DataCase
+      import Prices.DataCase
     end
   end
 
   setup tags do
-    Pento.DataCase.setup_sandbox(tags)
+    Prices.DataCase.setup_sandbox(tags)
     :ok
   end
 
@@ -36,7 +36,7 @@ defmodule Pento.DataCase do
   Sets up the sandbox based on the test tags.
   """
   def setup_sandbox(tags) do
-    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(Pento.Repo, shared: not tags[:async])
+    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(Prices.Repo, shared: not tags[:async])
     on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
   end
 

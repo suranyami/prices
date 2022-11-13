@@ -1,7 +1,7 @@
-defmodule Pento.CatalogFixtures do
+defmodule Prices.CatalogFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `Pento.Catalog` context.
+  entities via the `Prices.Catalog` context.
   """
 
   @doc """
@@ -21,7 +21,7 @@ defmodule Pento.CatalogFixtures do
         sku: unique_product_sku(),
         unit_price: 120.5
       })
-      |> Pento.Catalog.create_product()
+      |> Prices.Catalog.create_product()
 
     product
   end

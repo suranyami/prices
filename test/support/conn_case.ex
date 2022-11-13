@@ -1,4 +1,4 @@
-defmodule PentoWeb.ConnCase do
+defmodule PricesWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,7 +11,7 @@ defmodule PentoWeb.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use PentoWeb.ConnCase, async: true`, although
+  by setting `use PricesWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -22,17 +22,17 @@ defmodule PentoWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import PentoWeb.ConnCase
+      import PricesWeb.ConnCase
 
-      alias PentoWeb.Router.Helpers, as: Routes
+      alias PricesWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint PentoWeb.Endpoint
+      @endpoint PricesWeb.Endpoint
     end
   end
 
   setup tags do
-    Pento.DataCase.setup_sandbox(tags)
+    Prices.DataCase.setup_sandbox(tags)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 
@@ -45,7 +45,7 @@ defmodule PentoWeb.ConnCase do
   test context.
   """
   def register_and_log_in_user(%{conn: conn}) do
-    user = Pento.AccountsFixtures.user_fixture()
+    user = Prices.AccountsFixtures.user_fixture()
     %{conn: log_in_user(conn, user), user: user}
   end
 
@@ -55,7 +55,7 @@ defmodule PentoWeb.ConnCase do
   It returns an updated `conn`.
   """
   def log_in_user(conn, user) do
-    token = Pento.Accounts.generate_user_session_token(user)
+    token = Prices.Accounts.generate_user_session_token(user)
 
     conn
     |> Phoenix.ConnTest.init_test_session(%{})

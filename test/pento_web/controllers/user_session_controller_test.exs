@@ -1,7 +1,7 @@
-defmodule PentoWeb.UserSessionControllerTest do
-  use PentoWeb.ConnCase, async: true
+defmodule PricesWeb.UserSessionControllerTest do
+  use PricesWeb.ConnCase, async: true
 
-  import Pento.AccountsFixtures
+  import Prices.AccountsFixtures
 
   setup do
     %{user: user_fixture()}
@@ -50,7 +50,7 @@ defmodule PentoWeb.UserSessionControllerTest do
           }
         })
 
-      assert conn.resp_cookies["_pento_web_user_remember_me"]
+      assert conn.resp_cookies["_prices_web_user_remember_me"]
       assert redirected_to(conn) == "/"
     end
 

@@ -1,4 +1,4 @@
-defmodule Pento.Repo.Migrations.CreateProducts do
+defmodule Prices.Repo.Migrations.CreateProducts do
   use Ecto.Migration
 
   def change do

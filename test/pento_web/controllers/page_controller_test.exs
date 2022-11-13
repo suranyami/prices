@@ -1,5 +1,5 @@
-defmodule PentoWeb.PageControllerTest do
-  use PentoWeb.ConnCase
+defmodule PricesWeb.PageControllerTest do
+  use PricesWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")

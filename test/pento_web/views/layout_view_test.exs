@@ -1,5 +1,5 @@
-defmodule PentoWeb.LayoutViewTest do
-  use PentoWeb.ConnCase, async: true
+defmodule PricesWeb.LayoutViewTest do
+  use PricesWeb.ConnCase, async: true
 
   # When testing helpers, you may want to import Phoenix.HTML and
   # use functions such as safe_to_string() to convert the helper

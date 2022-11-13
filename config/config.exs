@@ -7,14 +7,14 @@
 # General application configuration
 import Config
 
-config :pento,
-  ecto_repos: [Pento.Repo]
+config :prices,
+  ecto_repos: [Prices.Repo]
 
 # Configures the endpoint
-config :pento, PentoWeb.Endpoint,
+config :prices, PricesWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: PentoWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Pento.PubSub,
+  render_errors: [view: PricesWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Prices.PubSub,
   live_view: [signing_salt: "7LVG3+3Y"]
 
 # Configures the mailer
@@ -24,7 +24,7 @@ config :pento, PentoWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :pento, Pento.Mailer, adapter: Swoosh.Adapters.Local
+config :prices, Prices.Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false

@@ -1,9 +1,9 @@
-defmodule PentoWeb.UserConfirmationControllerTest do
-  use PentoWeb.ConnCase, async: true
+defmodule PricesWeb.UserConfirmationControllerTest do
+  use PricesWeb.ConnCase, async: true
 
-  alias Pento.Accounts
-  alias Pento.Repo
-  import Pento.AccountsFixtures
+  alias Prices.Accounts
+  alias Prices.Repo
+  import Prices.AccountsFixtures
 
   setup do
     %{user: user_fixture()}

@@ -1,12 +1,12 @@
-defmodule PentoWeb do
+defmodule PricesWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use PentoWeb, :controller
-      use PentoWeb, :view
+      use PricesWeb, :controller
+      use PricesWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,19 +19,19 @@ defmodule PentoWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: PentoWeb
+      use Phoenix.Controller, namespace: PricesWeb
 
       import Plug.Conn
-      import PentoWeb.Gettext
-      alias PentoWeb.Router.Helpers, as: Routes
+      import PricesWeb.Gettext
+      alias PricesWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/pento_web/templates",
-        namespace: PentoWeb
+        root: "lib/prices_web/templates",
+        namespace: PricesWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -45,7 +45,7 @@ defmodule PentoWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {PentoWeb.LayoutView, "live.html"}
+        layout: {PricesWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
     end
@@ -80,7 +80,7 @@ defmodule PentoWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import PentoWeb.Gettext
+      import PricesWeb.Gettext
     end
   end
 
@@ -91,14 +91,14 @@ defmodule PentoWeb do
 
       # Import LiveView and .heex helpers (live_render, live_patch, <.form>, etc)
       import Phoenix.LiveView.Helpers
-      import PentoWeb.LiveHelpers
+      import PricesWeb.LiveHelpers
 
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import PentoWeb.ErrorHelpers
-      import PentoWeb.Gettext
-      alias PentoWeb.Router.Helpers, as: Routes
+      import PricesWeb.ErrorHelpers
+      import PricesWeb.Gettext
+      alias PricesWeb.Router.Helpers, as: Routes
     end
   end
 

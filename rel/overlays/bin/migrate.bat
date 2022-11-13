@@ -1,1 +1,1 @@
-call "%~dp0\pento" eval Pento.Release.migrate
+call "%~dp0\prices" eval Prices.Release.migrate

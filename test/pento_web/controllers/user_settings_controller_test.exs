@@ -1,8 +1,8 @@
-defmodule PentoWeb.UserSettingsControllerTest do
-  use PentoWeb.ConnCase, async: true
+defmodule PricesWeb.UserSettingsControllerTest do
+  use PricesWeb.ConnCase, async: true
 
-  alias Pento.Accounts
-  import Pento.AccountsFixtures
+  alias Prices.Accounts
+  import Prices.AccountsFixtures
 
   setup :register_and_log_in_user
 

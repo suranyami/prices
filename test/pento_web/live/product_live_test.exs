@@ -1,8 +1,8 @@
-defmodule PentoWeb.ProductLiveTest do
-  use PentoWeb.ConnCase
+defmodule PricesWeb.ProductLiveTest do
+  use PricesWeb.ConnCase
 
   import Phoenix.LiveViewTest
-  import Pento.CatalogFixtures
+  import Prices.CatalogFixtures
 
   @create_attrs %{description: "some description", name: "some name", sku: 42, unit_price: 120.5}
   @update_attrs %{
