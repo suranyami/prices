@@ -8,16 +8,13 @@ defmodule Prices.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
       Prices.Repo,
-      # Start the Telemetry supervisor
       PricesWeb.Telemetry,
-      # Start the PubSub system
-      {Phoenix.PubSub, name: Prices.PubSub},
-      # Start the Endpoint (http/https)
-      PricesWeb.Endpoint
-      # Start a worker by calling: Prices.Worker.start_link(arg)
-      # {Prices.Worker, arg}
+      {Prices.PriceWobbler, []},
+      PricesWeb.Endpoint,
+      {Phoenix.PubSub, name: PricesWeb.PubSub},
+      {Postgrex.Notifications, name: PricesWeb.Notifications},
+      {Prices.DatabaseListener.Listener, "table_changes"}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -3,5 +3,4 @@ defmodule Prices.Factory do
 
   # with Ecto
   use ExMachina.Ecto, repo: Prices.Repo
-  use Prices.ProductFactory
 end

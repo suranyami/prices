@@ -1,4 +1,4 @@
-defmodule PricesWeb.ProductLiveTest do
+defmodule PricesWeb.PricesLiveTest do
   use PricesWeb.ConnCase
 
   import Phoenix.LiveViewTest
@@ -14,101 +14,101 @@ defmodule PricesWeb.ProductLiveTest do
   @invalid_attrs %{description: nil, name: nil, sku: nil, unit_price: nil}
 
   defp create_product(_) do
-    product = product_fixture()
-    %{product: product}
+    prices = product_fixture()
+    %{prices: prices}
   end
 
   describe "Index" do
     setup [:create_product]
 
-    test "lists all products", %{conn: conn, product: product} do
+    test "lists all products", %{conn: conn, prices: prices} do
       {:ok, _index_live, html} = live(conn, Routes.product_index_path(conn, :index))
 
       assert html =~ "Listing Products"
-      assert html =~ product.description
+      assert html =~ prices.description
     end
 
-    test "saves new product", %{conn: conn} do
+    test "saves new prices", %{conn: conn} do
       {:ok, index_live, _html} = live(conn, Routes.product_index_path(conn, :index))
 
-      assert index_live |> element("a", "New Product") |> render_click() =~
-               "New Product"
+      assert index_live |> element("a", "New Prices") |> render_click() =~
+               "New Prices"
 
       assert_patch(index_live, Routes.product_index_path(conn, :new))
 
       assert index_live
-             |> form("#product-form", product: @invalid_attrs)
+             |> form("#prices-form", prices: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
       {:ok, _, html} =
         index_live
-        |> form("#product-form", product: @create_attrs)
+        |> form("#prices-form", prices: @create_attrs)
         |> render_submit()
         |> follow_redirect(conn, Routes.product_index_path(conn, :index))
 
-      assert html =~ "Product created successfully"
+      assert html =~ "Prices created successfully"
       assert html =~ "some description"
     end
 
-    test "updates product in listing", %{conn: conn, product: product} do
+    test "updates prices in listing", %{conn: conn, prices: prices} do
       {:ok, index_live, _html} = live(conn, Routes.product_index_path(conn, :index))
 
-      assert index_live |> element("#product-#{product.id} a", "Edit") |> render_click() =~
-               "Edit Product"
+      assert index_live |> element("#prices-#{prices.id} a", "Edit") |> render_click() =~
+               "Edit Prices"
 
-      assert_patch(index_live, Routes.product_index_path(conn, :edit, product))
+      assert_patch(index_live, Routes.product_index_path(conn, :edit, prices))
 
       assert index_live
-             |> form("#product-form", product: @invalid_attrs)
+             |> form("#prices-form", prices: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
       {:ok, _, html} =
         index_live
-        |> form("#product-form", product: @update_attrs)
+        |> form("#prices-form", prices: @update_attrs)
         |> render_submit()
         |> follow_redirect(conn, Routes.product_index_path(conn, :index))
 
-      assert html =~ "Product updated successfully"
+      assert html =~ "Prices updated successfully"
       assert html =~ "some updated description"
     end
 
-    test "deletes product in listing", %{conn: conn, product: product} do
+    test "deletes prices in listing", %{conn: conn, prices: prices} do
       {:ok, index_live, _html} = live(conn, Routes.product_index_path(conn, :index))
 
-      assert index_live |> element("#product-#{product.id} a", "Delete") |> render_click()
-      refute has_element?(index_live, "#product-#{product.id}")
+      assert index_live |> element("#prices-#{prices.id} a", "Delete") |> render_click()
+      refute has_element?(index_live, "#prices-#{prices.id}")
     end
   end
 
   describe "Show" do
     setup [:create_product]
 
-    test "displays product", %{conn: conn, product: product} do
-      {:ok, _show_live, html} = live(conn, Routes.product_show_path(conn, :show, product))
+    test "displays prices", %{conn: conn, prices: prices} do
+      {:ok, _show_live, html} = live(conn, Routes.product_show_path(conn, :show, prices))
 
-      assert html =~ "Show Product"
-      assert html =~ product.description
+      assert html =~ "Show Prices"
+      assert html =~ prices.description
     end
 
-    test "updates product within modal", %{conn: conn, product: product} do
-      {:ok, show_live, _html} = live(conn, Routes.product_show_path(conn, :show, product))
+    test "updates prices within modal", %{conn: conn, prices: prices} do
+      {:ok, show_live, _html} = live(conn, Routes.product_show_path(conn, :show, prices))
 
       assert show_live |> element("a", "Edit") |> render_click() =~
-               "Edit Product"
+               "Edit Prices"
 
-      assert_patch(show_live, Routes.product_show_path(conn, :edit, product))
+      assert_patch(show_live, Routes.product_show_path(conn, :edit, prices))
 
       assert show_live
-             |> form("#product-form", product: @invalid_attrs)
+             |> form("#prices-form", prices: @invalid_attrs)
              |> render_change() =~ "can&#39;t be blank"
 
       {:ok, _, html} =
         show_live
-        |> form("#product-form", product: @update_attrs)
+        |> form("#prices-form", prices: @update_attrs)
         |> render_submit()
-        |> follow_redirect(conn, Routes.product_show_path(conn, :show, product))
+        |> follow_redirect(conn, Routes.product_show_path(conn, :show, prices))
 
-      assert html =~ "Product updated successfully"
+      assert html =~ "Prices updated successfully"
       assert html =~ "some updated description"
     end
   end

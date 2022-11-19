@@ -4,23 +4,23 @@ defmodule Prices.CatalogTest do
   alias Prices.Catalog
 
   describe "products" do
-    alias Prices.Catalog.Product
+    alias Prices.Catalog.Prices
 
     import Prices.CatalogFixtures
 
     @invalid_attrs %{description: nil, name: nil, sku: nil, unit_price: nil}
 
     test "list_products/0 returns all products" do
-      product = product_fixture()
-      assert Catalog.list_products() == [product]
+      prices = product_fixture()
+      assert Catalog.list_products() == [prices]
     end
 
-    test "get_product!/1 returns the product with given id" do
-      product = product_fixture()
-      assert Catalog.get_product!(product.id) == product
+    test "get_product!/1 returns the prices with given id" do
+      prices = product_fixture()
+      assert Catalog.get_product!(prices.id) == prices
     end
 
-    test "create_product/1 with valid data creates a product" do
+    test "create_product/1 with valid data creates a prices" do
       valid_attrs = %{
         description: "some description",
         name: "some name",
@@ -28,19 +28,19 @@ defmodule Prices.CatalogTest do
         unit_price: 120.5
       }
 
-      assert {:ok, %Product{} = product} = Catalog.create_product(valid_attrs)
-      assert product.description == "some description"
-      assert product.name == "some name"
-      assert product.sku == 42
-      assert product.unit_price == 120.5
+      assert {:ok, %Prices{} = prices} = Catalog.create_product(valid_attrs)
+      assert prices.description == "some description"
+      assert prices.name == "some name"
+      assert prices.sku == 42
+      assert prices.unit_price == 120.5
     end
 
     test "create_product/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = Catalog.create_product(@invalid_attrs)
     end
 
-    test "update_product/2 with valid data updates the product" do
-      product = product_fixture()
+    test "update_product/2 with valid data updates the prices" do
+      prices = product_fixture()
 
       update_attrs = %{
         description: "some updated description",
@@ -49,28 +49,28 @@ defmodule Prices.CatalogTest do
         unit_price: 456.7
       }
 
-      assert {:ok, %Product{} = product} = Catalog.update_product(product, update_attrs)
-      assert product.description == "some updated description"
-      assert product.name == "some updated name"
-      assert product.sku == 43
-      assert product.unit_price == 456.7
+      assert {:ok, %Prices{} = prices} = Catalog.update_product(prices, update_attrs)
+      assert prices.description == "some updated description"
+      assert prices.name == "some updated name"
+      assert prices.sku == 43
+      assert prices.unit_price == 456.7
     end
 
     test "update_product/2 with invalid data returns error changeset" do
-      product = product_fixture()
-      assert {:error, %Ecto.Changeset{}} = Catalog.update_product(product, @invalid_attrs)
-      assert product == Catalog.get_product!(product.id)
+      prices = product_fixture()
+      assert {:error, %Ecto.Changeset{}} = Catalog.update_product(prices, @invalid_attrs)
+      assert prices == Catalog.get_product!(prices.id)
     end
 
-    test "delete_product/1 deletes the product" do
-      product = product_fixture()
-      assert {:ok, %Product{}} = Catalog.delete_product(product)
-      assert_raise Ecto.NoResultsError, fn -> Catalog.get_product!(product.id) end
+    test "delete_product/1 deletes the prices" do
+      prices = product_fixture()
+      assert {:ok, %Prices{}} = Catalog.delete_product(prices)
+      assert_raise Ecto.NoResultsError, fn -> Catalog.get_product!(prices.id) end
     end
 
-    test "change_product/1 returns a product changeset" do
-      product = product_fixture()
-      assert %Ecto.Changeset{} = Catalog.change_product(product)
+    test "change_product/1 returns a prices changeset" do
+      prices = product_fixture()
+      assert %Ecto.Changeset{} = Catalog.change_product(prices)
     end
   end
 end

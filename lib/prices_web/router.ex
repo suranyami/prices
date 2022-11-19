@@ -1,8 +1,6 @@
 defmodule PricesWeb.Router do
   use PricesWeb, :router
 
-  import PricesWeb.UserAuth
-
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -10,7 +8,6 @@ defmodule PricesWeb.Router do
     plug :put_root_layout, {PricesWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug :fetch_current_user
   end
 
   pipeline :api do
@@ -19,17 +16,11 @@ defmodule PricesWeb.Router do
 
   scope "/", PricesWeb do
     pipe_through [:browser]
-    get "/", Redirect, to: "/products"
+    get "/", Redirect, to: "/prices"
 
     live_session :default do
-      live "/products", ProductLive.Index, :index
-      live "/products/new", ProductLive.Index, :new
-      live "/products/:id/edit", ProductLive.Index, :edit
-      live "/products/:id", ProductLive.Show, :show
-      live "/products/:id/show/edit", ProductLive.Show, :edit
+      live "/prices", PricesLive.Index, :index
     end
-
-    get "/users/settings", UserSettingsController, :edit
   end
 
   # Other scopes may use custom stacks.

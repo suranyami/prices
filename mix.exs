@@ -1,4 +1,5 @@
 defmodule Prices.MixProject do
+  @moduledoc false
   use Mix.Project
 
   def project do
@@ -35,6 +36,7 @@ defmodule Prices.MixProject do
     [
       {:bcrypt_elixir, "~> 3.0"},
       {:bulma, "0.9.3"},
+      {:credo, "~> 1.6"},
       {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
       {:ecto_sql, "~> 3.6"},
       {:ecto_psql_extras, "~> 0.6"},

@@ -14,7 +14,7 @@ config :prices,
 config :prices, PricesWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: PricesWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Prices.PubSub,
+  pubsub_server: PricesWeb.PubSub,
   live_view: [signing_salt: "7LVG3+3Y"]
 
 # Configures the mailer

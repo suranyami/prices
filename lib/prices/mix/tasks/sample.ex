@@ -13,8 +13,8 @@ defmodule Mix.Tasks.Sample do
 
     1..100
     |> Enum.each(fn _ ->
-      product = insert(:product)
-      IO.puts("Created product: #{product.name}")
+      prices = insert(:prices)
+      IO.puts("Created prices: #{prices.name}")
     end)
   end
 end

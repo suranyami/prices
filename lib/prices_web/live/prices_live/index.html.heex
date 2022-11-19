@@ -1,0 +1,20 @@
+<h1>Crypto Prices</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Current Price</th>
+    </tr>
+  </thead>
+  <tbody id="prices">
+    <%= for coin <- @coins do %>
+      <tr id={"coin-#{coin.code}"}>
+        <td><%= coin.code %></td>
+        <td><%= coin.name %></td>
+        <td align="right"><%= Prices.format(coin.price.price) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

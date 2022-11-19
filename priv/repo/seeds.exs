@@ -1,27 +1,111 @@
-alias Prices.Catalog
 # mix run priv/repo/seeds.exs
 
-products = [
+coins = [
   %{
-    name: "Chess",
-    description: "The classic strategy game",
-    sku: 5_678_910,
-    unit_price: 10.00
+    code: "BTC",
+    name: "Bitcoin"
   },
   %{
-    name: "Tic-Tac-Toe",
-    description: "The game of Xs and Os",
-    sku: 11_121_314,
-    unit_price: 3.00
+    code: "LTC",
+    name: "LiteCoin"
   },
   %{
-    name: "Table Tennis",
-    description: "Bat the ball back and forth.",
-    sku: 15_222_324,
-    unit_price: 12.00
+    code: "DOGE",
+    name: "Dogecoin"
+  },
+  %{
+    code: "ETH",
+    name: "Ethereum"
+  },
+  %{
+    code: "XRP",
+    name: "Ripple"
+  },
+  %{
+    code: "SOL",
+    name: "Solana"
+  },
+  %{
+    code: "XLM",
+    name: "Stellar"
+  },
+  %{
+    code: "SHIB",
+    name: "Shiba Inu"
+  },
+  %{
+    code: "ADA",
+    name: "Cardano"
+  },
+  %{
+    code: "DOT",
+    name: "Polkadot"
+  },
+  %{
+    code: "BNB",
+    name: "Binance Coin"
+  },
+  %{
+    code: "USDT",
+    name: "Tether"
+  },
+  %{
+    code: "UNI",
+    name: "Uniswap"
+  },
+  %{
+    code: "LINK",
+    name: "Chainlink"
+  },
+  %{
+    code: "BCH",
+    name: "Bitcoin Cash"
+  },
+  %{
+    code: "MATIC",
+    name: "Polygon"
+  },
+  %{
+    code: "XMR",
+    name: "Monero"
+  },
+  %{
+    code: "FIL",
+    name: "Filecoin"
+  },
+  %{
+    code: "WBTC",
+    name: "Wrapped Bitcoin"
+  },
+  %{
+    code: "THETA",
+    name: "Theta"
+  },
+  %{
+    code: "VET",
+    name: "VeChain"
+  },
+  %{
+    code: "TRX",
+    name: "TRON"
+  },
+  %{
+    code: "LUNA",
+    name: "Terra"
+  },
+  %{
+    code: "EOS",
+    name: "EOS"
+  },
+  %{
+    code: "AAVE",
+    name: "Aave"
   }
 ]
 
-Enum.each(products, fn product ->
-  Catalog.create_product(product)
+Enum.each(coins, fn attrs ->
+  unless Prices.Coins.exists?(attrs.code) do
+    coin = Prices.Coins.create(attrs)
+    Prices.Prices.update(coin, 100.0)
+  end
 end)

@@ -14,12 +14,12 @@ defmodule PricesWeb.LiveHelpers do
 
       <.modal return_to={Routes.product_index_path(@socket, :index)}>
         <.live_component
-          module={PricesWeb.ProductLive.FormComponent}
-          id={@product.id || :new}
+          module={PricesWeb.PricesLive.FormComponent}
+          id={@prices.id || :new}
           title={@page_title}
           action={@live_action}
           return_to={Routes.product_index_path(@socket, :index)}
-          product: @product
+          prices: @prices
         />
       </.modal>
   """
