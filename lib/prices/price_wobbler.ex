@@ -50,14 +50,10 @@ defmodule Prices.PriceWobbler do
         price: new_price
       }
 
-      Logger.error("New price of #{coin.name} moved from #{old_price} to #{new_price}")
-      Logger.error(inspect(change))
+      Logger.info("New price of #{coin.name} moved from #{old_price} to #{new_price}")
       PubSub.broadcast(PricesWeb.PubSub, "prices", change)
-
-      # Logger.warn("New price of #{coin.name} moved from #{old_price} to #{new_price}")
     else
       Prices.update(coin, 100.0)
-      # Logger.warn("New price of #{coin.name} set to $100.00")
     end
   end
 

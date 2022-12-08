@@ -37,11 +37,6 @@ defmodule Prices.Prices do
   end
 
   def format(price) do
-    price_float =
-      price
-      |> Decimal.to_float()
-      |> Float.round(2)
-
-    "$#{price_float}"
+    "$#{price}"
   end
 end
