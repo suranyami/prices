@@ -6,7 +6,7 @@ defmodule Prices.Repo.Migrations.AddTriggers do
 
   def up do
     # Create a function that broadcasts row changes
-    execute "
+    execute """
       CREATE OR REPLACE FUNCTION broadcast_changes()
       RETURNS trigger AS $$
       DECLARE
@@ -35,7 +35,8 @@ defmodule Prices.Repo.Migrations.AddTriggers do
         );
       RETURN current_row;
       END;
-      $$ LANGUAGE plpgsql;"
+      $$ LANGUAGE plpgsql;
+    """
 
     # Create a trigger that links all of the tables to the broadcast function.
     # Skip the migrations table.
@@ -59,6 +60,8 @@ defmodule Prices.Repo.Migrations.AddTriggers do
                             ON ' || r.table_name || '
                             FOR EACH ROW
                             EXECUTE PROCEDURE broadcast_changes();';
+                    EXECUTE 'ENABLE TRIGGER create_notify_triggers ON ' || r.table_name || ';';
+                    EXECUTE 'ENABLE TRIGGER broadcast_changes ON ' || r.table_name || ';';
                   END LOOP;
                 END;
                 $$;"

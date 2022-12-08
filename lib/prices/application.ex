@@ -13,8 +13,8 @@ defmodule Prices.Application do
       {Prices.PriceWobbler, []},
       PricesWeb.Endpoint,
       {Phoenix.PubSub, name: PricesWeb.PubSub},
-      {Postgrex.Notifications, name: PricesWeb.Notifications},
-      {Prices.DatabaseListener.Listener, "table_changes"}
+      {Postgrex.Notifications, Keyword.put_new(Prices.Repo.config(), :name, PricesWeb.Notifier)},
+      {Prices.DatabaseListener, "table_changes"}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

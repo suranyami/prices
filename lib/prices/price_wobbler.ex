@@ -21,7 +21,7 @@ defmodule Prices.PriceWobbler do
     {:ok, prices}
   end
 
-  def handle_info(:wobble, state) do
+  def handle_info(:wobble, _state) do
     Logger.debug("Wobbling prices")
 
     coin =

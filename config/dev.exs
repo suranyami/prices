@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :prices, Prices.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "",
   hostname: "localhost",
   database: "prices_dev",
   stacktrace: true,

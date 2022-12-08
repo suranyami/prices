@@ -1,28 +1,27 @@
-defmodule Prices.DatabaseListener.Listener do
+defmodule Prices.DatabaseListener do
   use GenServer
   require Logger
+  alias Phoenix.PubSub
+  alias Prices.Repo
 
   @doc """
   Initialize the GenServer
   """
-  def start_link(channel, otp_opts \\ []), do: GenServer.start_link(__MODULE__, channel, otp_opts)
+  def start_link(channel) do
+    GenServer.start_link(__MODULE__, channel)
+  end
 
   @doc """
   When the GenServer starts subscribe to the given channel
   """
-  def init(_) do
-    Logger.warn("Starting #{__MODULE__} with channel subscription: table_changes")
-    pg_config = Prices.Repo.config()
+  def init(channel) do
+    Logger.warn("Starting #{__MODULE__} with channel subscription: #{channel}")
+    pg_config = Repo.config()
     {:ok, pid} = Postgrex.Notifications.start_link(pg_config)
-    {:ok, ref} = Postgrex.Notifications.listen(pid, "table_changes")
+    {:ok, ref} = Postgrex.Notifications.listen(pid, channel)
     Logger.warn("Started")
 
     {:ok, {pid, "table_changes", ref}}
-  end
-
-  receive do
-    params ->
-      Logger.warn("Received params: #{inspect(params)}")
   end
 
   @doc """
@@ -52,7 +51,7 @@ defmodule Prices.DatabaseListener.Listener do
     {:noreply, :event_received}
   end
 
-  def publish(change) do
+  def publish(change = %{}) do
     Logger.info("Publishing change: #{inspect(change)}")
     PubSub.broadcast(PricesWeb.PubSub, :prices, change)
   end
