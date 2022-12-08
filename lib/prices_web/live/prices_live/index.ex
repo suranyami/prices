@@ -14,6 +14,7 @@ defmodule PricesWeb.PricesLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
+  @impl true
   def handle_info({:prices, _}, socket) do
     Logger.error("Got a price update")
     {:noreply, assign(socket, :coins, get_coins())}

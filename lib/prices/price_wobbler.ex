@@ -14,6 +14,7 @@ defmodule Prices.PriceWobbler do
   @doc """
   Load the coins from the database and start moving the prices up and down small percentages.
   """
+  @impl true
   def init(_) do
     Logger.debug("Starting #{__MODULE__}")
     prices = Prices.get_price_map()
@@ -21,7 +22,8 @@ defmodule Prices.PriceWobbler do
     {:ok, prices}
   end
 
-  def handle_info(:wobble, state) do
+  @impl true
+  def handle_info(:wobble, _state) do
     Logger.debug("Wobbling prices")
 
     coin =
