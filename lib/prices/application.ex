@@ -12,9 +12,9 @@ defmodule Prices.Application do
       PricesWeb.Telemetry,
       {Prices.PriceWobbler, []},
       PricesWeb.Endpoint,
-      {Phoenix.PubSub, name: PricesWeb.PubSub},
       {Postgrex.Notifications, Keyword.put_new(Prices.Repo.config(), :name, PricesWeb.Notifier)},
-      {Prices.DatabaseListener, "table_changes"}
+      {Phoenix.PubSub, [name: PricesWeb.PubSub, adapter: Phoenix.PubSub.PG2]}
+      # {Prices.DatabaseListener, "table_changes"}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

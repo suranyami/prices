@@ -9,11 +9,10 @@
     </tr>
   </thead>
   <tbody id="prices">
-    <%= for coin <- @coins do %>
-      <tr id={"coin-#{coin.code}"}>
-        <td><%= coin.code %></td>
-        <td><%= coin.name %></td>
-        <td align="right"><%= Prices.format(coin.price.price) %></td>
+    <%= for {code, price} <- @coins do %>
+      <tr id={"coin-#{code}"}>
+        <td><%= code %></td>
+        <td align="right"><%= Prices.format(price) %></td>
       </tr>
     <% end %>
   </tbody>

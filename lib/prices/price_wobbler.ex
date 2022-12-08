@@ -3,6 +3,8 @@ defmodule Prices.PriceWobbler do
   A GenServer that periodically updates the price of a coin.
   """
   use GenServer
+  alias Phoenix.PubSub
+
   require Logger
 
   alias Prices.{Coins, Prices}
@@ -24,7 +26,7 @@ defmodule Prices.PriceWobbler do
 
   @impl true
   def handle_info(:wobble, _state) do
-    Logger.debug("Wobbling prices")
+    # Logger.debug("Wobbling prices")
 
     coin =
       Coins.list()
@@ -42,10 +44,20 @@ defmodule Prices.PriceWobbler do
       old_price = Decimal.to_float(price.price)
       new_price = old_price + random_percent() * old_price
       Prices.update(coin, new_price)
-      Logger.warn("New price of #{coin.name} moved from #{old_price} to #{new_price}")
+
+      change = %{
+        code: coin.code,
+        price: new_price
+      }
+
+      Logger.error("New price of #{coin.name} moved from #{old_price} to #{new_price}")
+      Logger.error(inspect(change))
+      PubSub.broadcast(PricesWeb.PubSub, "prices", change)
+
+      # Logger.warn("New price of #{coin.name} moved from #{old_price} to #{new_price}")
     else
       Prices.update(coin, 100.0)
-      Logger.warn("New price of #{coin.name} set to $100.00")
+      # Logger.warn("New price of #{coin.name} set to $100.00")
     end
   end
 
