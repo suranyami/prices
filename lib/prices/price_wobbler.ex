@@ -58,6 +58,6 @@ defmodule Prices.PriceWobbler do
   end
 
   def random_percent do
-    Enum.random(-1..1) / (100 * 100)
+    Enum.random(-5..5) / (100 * 100)
   end
 end
