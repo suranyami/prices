@@ -7,10 +7,13 @@ defmodule PricesWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_prices_key",
-    signing_salt: "P8M40dQc"
+    signing_salt: "P8M40dQc",
+    same_site: "Lax"
   ]
 
-  socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
+  socket "/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options]],
+    longpoll: [connect_info: [session: @session_options]]
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -19,8 +22,9 @@ defmodule PricesWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :prices,
-    gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt)
+    gzip: not code_reloading?,
+    only: PricesWeb.static_paths(),
+    raise_on_missing_only: code_reloading?
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

@@ -1,20 +1,12 @@
-<h1>Crypto Prices</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Code</th>
-      <th>Name</th>
-      <th>Current Price</th>
-    </tr>
-  </thead>
-  <tbody id="prices">
-    <%= for coin <- @coins do %>
-      <tr id={"coin-#{coin.code}"}>
-        <td><%= coin.code %></td>
-        <td><%= coin.name %></td>
-        <td align="right"><%= Prices.format(coin.price.price) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  <Layouts.app flash={@flash}>
+    <.header>Crypto Prices</.header>
+      <.table
+        id="prices"
+        rows={@streams.coins}
+      >
+        <:col :let={{_id, coin}} label="code">{coin.code}</:col>
+        <:col :let={{_id, coin}} label="Name">{coin.name}</:col>
+        <:col :let={{_id, coin}} label="Price" style="text-align: right;">{coin.price_display}</:col>
+        <:col :let={{_id, coin}} label="Diff">{coin.diff}</:col>
+      </.table>
+    </Layouts.app>

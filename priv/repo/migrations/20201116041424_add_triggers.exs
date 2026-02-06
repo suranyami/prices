@@ -1,12 +1,9 @@
-defmodule Prices.Repo.Migrations.AddTriggers do
-  @moduledoc """
-  Adds triggers to the database to notify the database listener of changes.
-  """
+defmodule MyApp.Repo.Migrations.AddPostgresTriggerAndFunctionForAllTables do
   use Ecto.Migration
 
   def up do
     # Create a function that broadcasts row changes
-    execute """
+    execute "
       CREATE OR REPLACE FUNCTION broadcast_changes()
       RETURNS trigger AS $$
       DECLARE
@@ -35,13 +32,11 @@ defmodule Prices.Repo.Migrations.AddTriggers do
         );
       RETURN current_row;
       END;
-      $$ LANGUAGE plpgsql;
-    """
+      $$ LANGUAGE plpgsql;"
 
-    # Create a trigger that links all of the tables to the broadcast function.
-    # Skip the migrations table.
+    # Create a trigger that links all of the tables to the broadcast function. Skip the migrations table.
 
-    execute "CREATE OR REPLACE FUNCTION create_notify_triggers()
+    execute   "CREATE OR REPLACE FUNCTION create_notify_triggers()
                 RETURNS event_trigger
                 LANGUAGE plpgsql
                 AS $$
@@ -60,20 +55,20 @@ defmodule Prices.Repo.Migrations.AddTriggers do
                             ON ' || r.table_name || '
                             FOR EACH ROW
                             EXECUTE PROCEDURE broadcast_changes();';
-                    EXECUTE 'ENABLE TRIGGER create_notify_triggers ON ' || r.table_name || ';';
-                    EXECUTE 'ENABLE TRIGGER broadcast_changes ON ' || r.table_name || ';';
                   END LOOP;
                 END;
                 $$;"
 
-    # What if we add more tables later, after this is run? This adds a trigger to add the above triggers to any new tables as well.
+    #What if we add more tables later, after this is run? This adds a trigger to add the above triggers to any new tables as well.
     execute "CREATE EVENT TRIGGER add_table_broadcast_triggers ON ddl_command_end
               WHEN TAG IN ('CREATE TABLE','CREATE TABLE AS')
               EXECUTE PROCEDURE create_notify_triggers();"
+
   end
 
   def down do
     execute "DROP EVENT TRIGGER add_table_broadcast_triggers"
+
     execute "FOR r IN SELECT *
                      FROM information_schema.tables
                      where table_schema = 'public'

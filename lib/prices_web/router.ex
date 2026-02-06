@@ -5,7 +5,7 @@ defmodule PricesWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {PricesWeb.LayoutView, :root}
+    plug :put_root_layout, html: {PricesWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -16,10 +16,16 @@ defmodule PricesWeb.Router do
 
   scope "/", PricesWeb do
     pipe_through [:browser]
-    get "/", Redirect, to: "/prices"
 
     live_session :default do
-      live "/prices", PricesLive.Index, :index
+    live "/", PricesLive.Index, :index
+    live "/prices", PricesLive.Index, :index
+
+    live "/coins", PricesLive.Index, :index
+    live "/coins/new", CoinLive.Form, :new
+    live "/coins/:id", CoinLive.Show, :show
+    live "/coins/:id/edit", CoinLive.Form, :edit
+
     end
   end
 

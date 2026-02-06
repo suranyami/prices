@@ -1,9 +1,10 @@
 defmodule PricesWeb.UserAuthTest do
   use PricesWeb.ConnCase, async: true
 
+  import Prices.AccountsFixtures
+
   alias Prices.Accounts
   alias PricesWeb.UserAuth
-  import Prices.AccountsFixtures
 
   @remember_me_cookie "_prices_web_user_remember_me"
 

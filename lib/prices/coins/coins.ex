@@ -10,8 +10,13 @@ defmodule Prices.Coins do
     Repo.get_by(Coin, code: code)
   end
 
+  def get(id) when is_integer(id) do
+    Repo.get!(Coin, id)
+  end
+
   def list do
-    Repo.all(Coin)
+    from(c in Coin, order_by: [asc: c.name])
+    |> Repo.all()
   end
 
   def create(attrs) do

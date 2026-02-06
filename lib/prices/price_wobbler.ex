@@ -3,10 +3,12 @@ defmodule Prices.PriceWobbler do
   A GenServer that periodically updates the price of a coin.
   """
   use GenServer
+
+  alias Prices.Coins
+  alias Prices.Prices
+
   require Logger
-
-  alias Prices.{Coins, Prices}
-
+  # alias Phoenix.PubSub
   def start_link(_) do
     GenServer.start_link(__MODULE__, nil, name: :price_wobbler)
   end
@@ -22,14 +24,10 @@ defmodule Prices.PriceWobbler do
   end
 
   def handle_info(:wobble, _state) do
-    Logger.debug("Wobbling prices")
-
-    coin =
-      Coins.list()
-      |> Enum.random()
+    coin = Enum.random(Coins.list())
 
     wobble_price(coin)
-    Process.send_after(self(), :wobble, Enum.random(10..5000))
+    Process.send_after(self(), :wobble, Enum.random(10..500))
     {:noreply, Prices.get_price_map()}
   end
 
@@ -40,14 +38,16 @@ defmodule Prices.PriceWobbler do
       old_price = Decimal.to_float(price.price)
       new_price = old_price + random_percent() * old_price
       Prices.update(coin, new_price)
-      Logger.warn("New price of #{coin.name} moved from #{old_price} to #{new_price}")
+      Logger.warning("New price of #{coin.name} moved from #{old_price} to #{new_price}")
     else
       Prices.update(coin, 100.0)
-      Logger.warn("New price of #{coin.name} set to $100.00")
+      Logger.warning("New price of #{coin.name} set to $100.00")
     end
+
+    # PubSub.broadcast(Prices.PubSub, "price_change", [])
   end
 
   def random_percent do
-    Enum.random(-1..1) / (100 * 100)
+    Enum.random(-50..50) / (100 * 100)
   end
 end

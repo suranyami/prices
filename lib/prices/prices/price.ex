@@ -1,6 +1,9 @@
 defmodule Prices.Price do
+  @moduledoc false
   use Ecto.Schema
+
   import Ecto.Changeset
+
   alias Prices.Coin
 
   schema "prices" do

@@ -4,9 +4,9 @@ defmodule Prices.CatalogTest do
   alias Prices.Catalog
 
   describe "products" do
-    alias Prices.Catalog.Prices
+    import Prices.Catalog.Prices.CatalogFixtures
 
-    import Prices.CatalogFixtures
+    alias Prices.Catalog.Prices
 
     @invalid_attrs %{description: nil, name: nil, sku: nil, unit_price: nil}
 

@@ -106,7 +106,7 @@ coins = [
 ]
 
 Enum.each(coins, fn attrs ->
-  unless Prices.Coins.exists?(attrs.code) do
+  if !Prices.Coins.exists?(attrs.code) do
     coin = Prices.Coins.create(attrs)
     Logger.info("Created coin #{coin.name}")
     Prices.Prices.update(coin, 100.0)

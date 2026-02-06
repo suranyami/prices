@@ -6,12 +6,13 @@ defmodule Prices.MixProject do
     [
       app: :prices,
       version: "0.1.0",
-      elixir: "~> 1.12",
+      elixir: "~> 1.17",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: Mix.compilers(),
+      compilers: [:phoenix_live_view] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      listeners: [Phoenix.CodeReloader]
     ]
   end
 
@@ -21,7 +22,7 @@ defmodule Prices.MixProject do
   def application do
     [
       mod: {Prices.Application, []},
-      extra_applications: [:logger, :runtime_tools, :inets, :os_mon]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -34,30 +35,42 @@ defmodule Prices.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:bcrypt_elixir, "~> 3.0"},
-      {:bulma, "0.9.3"},
+      {:bandit, "~> 1.5"},
+      {:dns_cluster, "~> 0.2.0"},
       {:credo, "~> 1.6"},
-      {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
-      {:ecto_sql, "~> 3.6"},
-      {:ecto_psql_extras, "~> 0.6"},
-      {:esbuild, "~> 0.4", runtime: Mix.env() == :dev},
+      {:ecto_sql, "~> 3.13"},
+      {:esbuild, "~> 0.10", runtime: Mix.env() == :dev},
       {:ex_machina, "~> 2.7"},
       {:faker, "~> 0.17"},
+      {:finch, "~> 0.13"},
       {:floki, ">= 0.30.0", only: :test},
-      {:gettext, "~> 0.18"},
+      {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
-      {:phoenix, "~> 1.6.14"},
+      {:heroicons,
+       github: "tailwindlabs/heroicons",
+       tag: "v2.2.0",
+       sparse: "optimized",
+       app: false,
+       compile: false,
+       depth: 1},
+      {:lazy_html, ">= 0.1.0", only: :test},
+      {:phoenix, "~> 1.8"},
       {:phoenix_ecto, "~> 4.4"},
-      {:phoenix_html, "~> 3.0"},
+      {:phoenix_html, "~> 3.3"},
+      {:phoenix_view, "~> 2.0"},
+      {:phoenix_live_dashboard, "~> 0.8"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 0.17.5"},
-      {:phoenix_live_dashboard, "~> 0.6"},
+      {:phoenix_live_view, "~> 1.1"},
       {:plug_cowboy, "~> 2.5"},
       {:postgrex, ">= 0.0.0"},
-      {:swoosh, "~> 1.3"},
+      {:req, "~> 0.5"},
+      {:swoosh, "~> 1.16"},
+      {:styler, "~> 1.10", only: [:dev, :test], runtime: false},
+      {:tailwind, "~> 0.3", runtime: Mix.env() == :dev},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
-      {:timex, "~>  3.7"}
+      {:timex, "~>  3.7"},
+      {:tidewave, "~> 0.5"}
     ]
   end
 

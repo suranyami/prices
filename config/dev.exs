@@ -1,5 +1,20 @@
 import Config
 
+# Do not include metadata nor timestamps in development logs
+config :logger, :console, format: "[$level] $message\n"
+
+# Initialize plugs at runtime for faster development compilation
+config :phoenix, :plug_init_mode, :runtime
+
+# Set a higher stacktrace during development. Avoid configuring such
+# in production as building large stacktraces may be expensive.
+config :phoenix, :stacktrace_depth, 20
+
+# Optional: better HEEx annotations in development (LiveView 1.1)
+config :phoenix_live_view,
+  debug_heex_annotations: true,
+  debug_attributes: true
+
 # Configure your database
 config :prices, Prices.Repo,
   username: "postgres",
@@ -26,13 +41,8 @@ config :prices, PricesWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "eIAoB+kuit0gfaxLCh2VRvWGFgoU97gGGZ4j+JvnHyCN4mVWj+2ghYo8jkWRX1/S",
   watchers: [
-    # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
-    sass: {
-      DartSass,
-      :install_and_run,
-      [:default, ~w(--embed-source-map --source-map-urls=absolute --watch)]
-    }
+    esbuild: {Esbuild, :install_and_run, [:prices, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:prices, ~w(--watch)]}
   ]
 
 # ## SSL Support
@@ -66,16 +76,7 @@ config :prices, PricesWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/prices_web/(live|views)/.*(ex)$",
-      ~r"lib/prices_web/templates/.*(eex)$"
+      ~r"lib/prices_web/templates/.*(eex|heex)$",
+      ~r"lib/prices_web/components/.*(ex)$"
     ]
   ]
-
-# Do not include metadata nor timestamps in development logs
-config :logger, :console, format: "[$level] $message\n"
-
-# Set a higher stacktrace during development. Avoid configuring such
-# in production as building large stacktraces may be expensive.
-config :phoenix, :stacktrace_depth, 20
-
-# Initialize plugs at runtime for faster development compilation
-config :phoenix, :plug_init_mode, :runtime

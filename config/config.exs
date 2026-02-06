@@ -1,59 +1,45 @@
-# This file is responsible for configuring your application
-# and its dependencies with the aid of the Config module.
-#
-# This configuration file is loaded before any dependency and
-# is restricted to this project.
-
-# General application configuration
 import Config
 
-config :prices,
-  ecto_repos: [Prices.Repo]
-
-# Configures the endpoint
-config :prices, PricesWeb.Endpoint,
-  url: [host: "localhost"],
-  render_errors: [view: PricesWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: PricesWeb.PubSub,
-  live_view: [signing_salt: "7LVG3+3Y"]
-
-# Configures the mailer
-#
-# By default it uses the "Local" adapter which stores the emails
-# locally. You can see the emails in your browser, at "/dev/mailbox".
-#
-# For production it's recommended to configure a different adapter
-# at the `config/runtime.exs`.
-config :prices, Prices.Mailer, adapter: Swoosh.Adapters.Local
-
-# Swoosh API client is needed for adapters other than SMTP.
-config :swoosh, :api_client, false
-
-# Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.14.29",
-  default: [
+  version: "0.25.4",
+  prices: [
     args:
-      ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+      ~w(js/app.js --bundle --target=es2022 --outdir=../priv/static/assets/js --external:/fonts/* --external:/images/* --alias:@=.),
     cd: Path.expand("../assets", __DIR__),
-    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+    env: %{"NODE_PATH" => [Path.expand("../deps", __DIR__), Mix.Project.build_path()]}
   ]
 
-# Configures Elixir's Logger
+# Configure tailwind (the version is required)
+config :tailwind,
+  version: "4.1.12",
+  prices: [
+    args: ~w(
+      --input=assets/css/app.css
+      --output=priv/static/assets/css/app.css
+    ),
+    cd: Path.expand("..", __DIR__)
+  ]
+
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
-# Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :dart_sass,
-  version: "1.55.0",
-  default: [
-    args: ~w(--load-path=../deps/bulma css:../priv/static/assets),
-    cd: Path.expand("../assets", __DIR__)
-  ]
+config :prices, Prices.Mailer, adapter: Swoosh.Adapters.Local
 
-# Import environment specific config. This must remain at the bottom
-# of this file so it overrides the configuration defined above.
+config :prices, PricesWeb.Endpoint,
+  url: [host: "localhost"],
+  render_errors: [
+    formats: [html: PricesWeb.ErrorView, json: PricesWeb.ErrorView],
+    layout: false
+  ],
+  pubsub_server: Prices.PubSub,
+  live_view: [signing_salt: "7LVG3+3Y"]
+
+config :prices,
+  ecto_repos: [Prices.Repo]
+
+config :swoosh, :api_client, false
+
 import_config "#{config_env()}.exs"

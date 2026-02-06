@@ -1,9 +1,10 @@
 defmodule PricesWeb.UserResetPasswordControllerTest do
   use PricesWeb.ConnCase, async: true
 
+  import Prices.AccountsFixtures
+
   alias Prices.Accounts
   alias Prices.Repo
-  import Prices.AccountsFixtures
 
   setup do
     %{user: user_fixture()}

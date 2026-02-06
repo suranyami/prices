@@ -1,8 +1,9 @@
 defmodule PricesWeb.UserSettingsControllerTest do
   use PricesWeb.ConnCase, async: true
 
-  alias Prices.Accounts
   import Prices.AccountsFixtures
+
+  alias Prices.Accounts
 
   setup :register_and_log_in_user
 
